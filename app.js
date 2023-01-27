@@ -12,12 +12,14 @@ mongoose.set('strictQuery', false);
 //     console.log('connected.....')
 // })
 
+// just checking
+
 mongoose.connect(url,{ useNewUrlParser: true },(err)=>{
     if(err){
     console.log(err)
 }
 else{
-    console.log("successfully connected")
+    console.log("successfully DB connected")
 }})
 
 app.use(bodyParser.json());
