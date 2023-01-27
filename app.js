@@ -12,7 +12,7 @@ mongoose.set('strictQuery', false);
 //     console.log('connected.....')
 // })
 
-// just checking
+// checking if account is changed or not
 
 mongoose.connect(url,{ useNewUrlParser: true },(err)=>{
     if(err){
