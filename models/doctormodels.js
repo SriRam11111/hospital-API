@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 const doctorSchema = new Schema({
   name: {
     type: String,
-    // required: true
+    required: true
   },
   specialty: {
     type: String,
-    // required: true
+    required: true
   },
   patients: [{
     type: Schema.Types.ObjectId,
