@@ -15,7 +15,7 @@ const patientSchema = new Schema({
     ref: "Doctor"
   }
 });
-//changes are done
+
 
 const Patient = mongoose.model("Patient", patientSchema);
 
