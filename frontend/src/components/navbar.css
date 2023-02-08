@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #2fb756;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.data{
+        color: #fff;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        height: 100%;
+        border-bottom: 3px solid transparent;
+}

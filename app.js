@@ -2,7 +2,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 const url = 'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2'
 const app = express()
-const hospitalrouter = require("./routers/routers")
+const cors = require("cors");
+const doctorRouter = require("./routers/doctor-routes")
+const patientRouter = require("./routers/patient-routes")
 
 mongoose.set('strictQuery', false);
 // mongoose.connect(url)
@@ -19,6 +21,7 @@ MONGODB_URI = 'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionT
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -34,7 +37,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
-app.use(hospitalrouter)
+app.use(doctorRouter)
+app.use(patientRouter)
 
 mongoose.connect(url,{ useNewUrlParser: true },(err)=>{
     if(err){
@@ -57,8 +61,8 @@ app.get('/',(req,res)=>{
 
 
 // Start the server
-app.listen(3000, () => {
-  // console.log('Server running on port 3000');
+app.listen(5000, () => {
+  console.log('Server running on port 5000');
 });
 
 module.exports = app;

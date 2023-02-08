@@ -23,15 +23,15 @@ describe('Doctor-operations', () => {
   })
 
   test('Get a doctor by ID', async () => {
-    const id= "63d38ea74b8c44baabf8abf9"
-    const res = await request(app).get('/doctors/63d38ea74b8c44baabf8abf9');
+    const id= "63db9b837b0cb9e0096f82f7"
+    const res = await request(app).get('/doctors/63db9b837b0cb9e0096f82f7');
     expect(res.statusCode).toEqual(200);
     expect(res.body._id).toEqual(id);
     
   });
 
   test('Create a new doctor', async () => {
-    const doctor = { name: 'matt', specialty: "brain-surgeon", patients: [ "63d37f6de1ee36df86aef575" ] };
+    const doctor = { name: 'calorine', specialty: "brain-surgeon", patients: [ "63d37f6de1ee36df86aef575" ] };
     const res = await request(app).post('/doctors').send(doctor);
     //  console.log("this",res.body)
     expect(res.statusCode).toEqual(200);
@@ -39,7 +39,7 @@ describe('Doctor-operations', () => {
   });
 
   it("should update a doctor record", async () => {
-    const res = await request(app).put("/doctors/63da5046aa6944eaf4aba57d")
+    const res = await request(app).put("/doctors/63db9def5cb084ea6843b034")
       .send({ name: 'vikki Doe', specialty: "brain-surgeon and heart-surgeon", patients: [ "63d37f6de1ee36df86aef575" ] });
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveProperty("patients");
@@ -72,16 +72,16 @@ describe('Patient-operations', () => {
   })
 
   test('Get a patient by ID', async () => {
-    const id= "63d38b49c36e8df1a603331a"
-    const res = await request(app).get('/patients/63d38b49c36e8df1a603331a');
+    const id= "63db9def5cb084ea6843b03a"
+    const res = await request(app).get('/patients/63db9def5cb084ea6843b03a');
     expect(res.statusCode).toEqual(200);
     expect(res.body._id).toEqual(id);
     
   });
 
   test('Create a new patient', async () => {
-    const patient = { "name": "kingkong",
-        "age": 29,
+    const patient = { "name": "mikaelson",
+        "age": 49,
         "doctor": "63d389efc36e8df1a6033312" };
     const res = await request(app).post('/patients').send(patient);
     //  console.log("this",res.body)
@@ -90,7 +90,7 @@ describe('Patient-operations', () => {
   });
 
   it("should update a patient record", async () => {
-    const res = await request(app).put("/patients/63d38b9cc36e8df1a6033321")
+    const res = await request(app).put("/patients/63db9cc962a8db20b7e5edc5")
       .send({"name": "bruce wagon",
         "age": 30,
         "doctor": "63d3785a49566ce4ead814cb" });
