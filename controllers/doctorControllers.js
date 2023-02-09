@@ -1,9 +1,10 @@
 const Doctor = require('../models/doctormodels')
 const Patient = require('../models/patientmodel')
-
+const jwt = require("jsonwebtoken")
 
 const getAllDoctors = async (req,res,next) => {
     let doctors;
+    console.log("doctor id:::",req.doctorId)
     try{
         doctors = await Doctor.find()
         console.log("get updated doctors")
@@ -21,11 +22,11 @@ const getAllDoctors = async (req,res,next) => {
 
 const addDoctors = async(req,res,next) => {
     let doctor =req.body
-    // console.log(doctor)
-    // console.log(doctor.name)
+    console.log(doctor)
+    console.log(doctor.name,doctor.email,doctor.password)
     let existingdoctor
     try{
-     existingdoctor = await Doctor.findOne({name:doctor.name})
+     existingdoctor = await Doctor.findOne({email:doctor.email})
     }
     catch(err){
         console.log(err)
@@ -33,7 +34,6 @@ const addDoctors = async(req,res,next) => {
     if(existingdoctor){
         return res.status(400).json({message:"already doctor with same name present"})
     }
-
      doctor = new Doctor(doctor)
      try{
         await doctor.save()
@@ -42,6 +42,27 @@ const addDoctors = async(req,res,next) => {
         return console.log(err)
      }
      return res.status(201).json({doctor})
+}
+
+const signIn = async (req,res) => {
+    const {email,password} = req.body
+    try{
+        const existingDoctor = await Doctor.findOne({email:email})
+        if (!existingDoctor) {
+            return res.status(404).json({message : "doctor not found"})
+        }
+        if (password!=existingDoctor.password){
+            console.log("password",password)
+            console.log("existingDoctor.password",existingDoctor.password)
+            return res.status(400).json({message : "Invalid Credentials"})
+        }
+        const token = jwt.sign({email:existingDoctor.email ,password : existingDoctor.password},"SECRET_KEY")
+         return res.status(201).json({user:existingDoctor,token:token})
+    }
+    catch(err){
+        console.log(err)
+         return res.status(500).json({message : " something went wrong"})
+    }
 }
 
 const updateDoctors = async(req,res,next)=>{
@@ -83,7 +104,7 @@ const getDoctorById = async (req,res,next) => {
     const id=req.params.id
     let doctor 
     try{
-        doctor = await Doctor.findById(id)
+        doctor = await Doctor.findById(id).populate("patients")
     }
     catch(err){
         return console.log(err)
@@ -94,4 +115,4 @@ const getDoctorById = async (req,res,next) => {
     return res.status(200).json({doctor})
 }
 
-module.exports={getAllDoctors , getDoctorById ,addDoctors ,updateDoctors,deleteDoctor}
+module.exports={getAllDoctors ,signIn, getDoctorById ,addDoctors ,updateDoctors,deleteDoctor}
