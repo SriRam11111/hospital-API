@@ -6,7 +6,7 @@ const getAllPatients = async (req,res,next) => {
     try{
         patients = await Patient.find()
         console.log("get patients")
-        
+        console.log("get doctors")
     }
     catch(err){
         console.log(err)
