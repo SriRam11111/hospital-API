@@ -1,6 +1,6 @@
 const Doctor = require('../models/doctormodels')
 const Patient = require('../models/patientmodel')
-const jwt = require("jsonwebtoken")
+
 
 const getAllDoctors = async (req,res,next) => {
     let doctors;
@@ -33,7 +33,7 @@ const addDoctors = async(req,res,next) => {
     if(existingdoctor){
         return res.status(400).json({message:"already doctor with same name present"})
     }
-    const token = 
+
      doctor = new Doctor(doctor)
      try{
         await doctor.save()
@@ -83,7 +83,7 @@ const getDoctorById = async (req,res,next) => {
     const id=req.params.id
     let doctor 
     try{
-        doctor = await Doctor.findById(id).populate("patients")
+        doctor = await Doctor.findById(id)
     }
     catch(err){
         return console.log(err)

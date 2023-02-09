@@ -1,12 +1,10 @@
 const Patient = require('../models/patientmodel')
-const Doctor = require('../models/doctormodels')
-
 const getAllPatients = async (req,res,next) => {
     let patients;
     try{
         patients = await Patient.find()
-        console.log("get patients")
         console.log("get doctors")
+        
     }
     catch(err){
         console.log(err)
@@ -30,12 +28,8 @@ const addPatient= async (req,res,next) => {
         return res.status(400).json({message:"already patient  with same name present"})
     }
     patient = new Patient(patient)
-    console.log("patient",patient)
      try{
         await patient.save()
-        let doctor= await Doctor.findById(patient.doctor)
-        await doctor.patients.push(patient)
-        await doctor.save()
      }
      catch(err){
         return console.log(err)
@@ -67,12 +61,7 @@ const deletePatient = async(req,res,next)=>{
     const id = req.params.id
     let patient
     try{
-        patient = await Patient.findByIdAndRemove(id).populate("doctor")
-        console.log("patient",patient)
-        console.log("patient.doctor.patients 1",patient.doctor.patients)
-        await patient.doctor.patients.pull(patient)
-        console.log("patient.doctor.patients 1",patient.doctor.patients)
-        await patient.doctor.save()
+        patient = await Patient.findByIdAndRemove(id)
     }
     catch(err){
         return console.log(err)
