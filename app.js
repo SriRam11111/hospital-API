@@ -29,7 +29,11 @@ mongoose.set('strictQuery', false);
 
 // checking if account is changed or not 
 
-MONGODB_URI = 'mongodb+srv://database:Database@cluster0.g8vaoci.mongodb.net/test'
+// <<<<<<< HEAD
+// MONGODB_URI = 'mongodb+srv://database:Database@cluster0.g8vaoci.mongodb.net/test'
+// =======
+// MONGODB_URI = 'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2'
+// >>>>>>> development
 
 const bodyParser = require('body-parser');
 
