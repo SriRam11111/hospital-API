@@ -5,12 +5,12 @@ const get = require("../controllers/doctorControllers")
 
 
 
-doctorRouter.post('/doctors',authentication,get.getAllDoctors)
+doctorRouter.get('/doctors',get.getAllDoctors)
 doctorRouter.post('/doctors',get.addDoctors)
 doctorRouter.put('/doctors/:id',get.updateDoctors)
 doctorRouter.delete('/doctors/:id',get.deleteDoctor)
-doctorRouter.get('/doctors/:id',get.getDoctorById)
+doctorRouter.get('/doctors/doctorprofile',authentication,get.doctorProfile)
 doctorRouter.post('/doctor/signin',get.signIn)
-
+doctorRouter.get('/doctorpatients',authentication,get.getDoctorPatients)
 
 module.exports=doctorRouter

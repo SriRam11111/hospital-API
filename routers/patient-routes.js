@@ -9,4 +9,5 @@ patientRouter.delete('/patients/:id',get.deletePatient)
 patientRouter.get('/patients/:id',get.getPatientById)
 
 
+
 module.exports=patientRouter

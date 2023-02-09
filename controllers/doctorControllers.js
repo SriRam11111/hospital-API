@@ -105,7 +105,7 @@ const signIn = async (req,res) => {
             console.log("existingDoctor.password",existingDoctor.password)
             return res.status(400).json({message : "Invalid Credentials"})
         }
-        const token = jwt.sign({email:existingDoctor.email ,password : existingDoctor.password},"SECRET_KEY")
+        const token = jwt.sign({email:existingDoctor.email ,password : existingDoctor.password,id:existingDoctor._id},"SECRET_KEY")
          return res.status(201).json({user:existingDoctor,token:token})
     }
     catch(err){
@@ -149,8 +149,9 @@ const deleteDoctor = async(req,res,next)=>{
     return res.status(200).json({message:"successfully deleted"})
 }
 
-const getDoctorById = async (req,res,next) => {
-    const id=req.params.id
+//
+const doctorProfile = async (req,res,next) => {
+    const id=req.doctorId
     let doctor 
     try{
         doctor = await Doctor.findById(id).populate("patients")
@@ -165,6 +166,26 @@ const getDoctorById = async (req,res,next) => {
 }
 
 
-module.exports={getAllDoctors ,signIn, getDoctorById ,addDoctors ,updateDoctors,deleteDoctor}
+//doctors to see patients under their observation
+
+const getDoctorPatients = async (req,res,next) => {
+    const id=req.doctorId
+    // console.log("req",req)
+    // console.log("id:",id)
+    let patient 
+    try{
+        patient = await Patient.find({doctor:id})
+        // console.log("doctor:",patient)
+    }
+    catch(err){
+        return console.log(err)
+    }
+    if(!patient){
+        return res.status(404).json ({message :`no doctor data found with id : ${id}`})
+    }
+    return res.status(200).json({patient})
+}
+
+module.exports={getAllDoctors ,signIn, doctorProfile ,addDoctors ,updateDoctors,deleteDoctor , getDoctorPatients}
 
 
