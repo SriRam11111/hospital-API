@@ -1,5 +1,6 @@
 const Doctor = require('../models/doctormodels')
 const Patient = require('../models/patientmodel')
+
 const jwt = require("jsonwebtoken")
 
 const getAllDoctors = async (req,res,next) => {
@@ -20,10 +21,16 @@ const getAllDoctors = async (req,res,next) => {
 }
 
 
+
+
+
+
 const addDoctors = async(req,res,next) => {
     let doctor =req.body
     console.log(doctor)
     console.log(doctor.name,doctor.email,doctor.password)
+
+    // console.log(doctor.name)
     let existingdoctor
     try{
      existingdoctor = await Doctor.findOne({email:doctor.email})
@@ -43,6 +50,48 @@ const addDoctors = async(req,res,next) => {
      }
      return res.status(201).json({doctor})
 }
+// const loginDoctors=async(req,res,next)=>{
+//     try{
+//         const {email,password} = req.body;
+//         let exist = await Doctor.findOne({email});
+//         if(!exist) {
+//             return res.status(400).send('User Not Found');
+//         }
+//         if(exist.password !== password) {
+//             return res.status(400).send('Invalid credentials');
+//         }
+//         let payload = {
+//             user:{
+//                 id : exist.id
+//             }
+//         }
+//         jwt.sign(payload,'jwtSecret',{expiresIn:3600000},
+//           (err,token) =>{
+//               if (err) throw err;
+//               return res.json({token})
+//           }  
+//             )
+
+//     }
+//     catch(err){
+//         console.log(err);
+//         return res.status(500).send('Server Error')
+//     }
+// }
+// const doctordashboard= async (req,res) =>{
+//     try{
+//         let exist = await Doctor.findById(req.user.id);
+//         if(!exist){
+//             return res.status(400).send('User not found');
+//         }
+//         res.json(exist);
+//     }
+//     catch(err){
+//         console.log(err);
+//         return res.status(500).send('Server Error')
+//     }
+// }
+
 
 const signIn = async (req,res) => {
     const {email,password} = req.body
@@ -115,4 +164,7 @@ const getDoctorById = async (req,res,next) => {
     return res.status(200).json({doctor})
 }
 
+
 module.exports={getAllDoctors ,signIn, getDoctorById ,addDoctors ,updateDoctors,deleteDoctor}
+
+

@@ -1,11 +1,23 @@
+// const middleware=require('./middleware/authentication')
 const express = require('express')
-
 require("./connection/connection")
+
 
 const app = express()
 const cors = require("cors");
 const doctorRouter = require("./routers/doctor-routes")
 const patientRouter = require("./routers/patient-routes")
+
+
+// mongoose.connect(url)
+// const con = mongoose.connection
+
+// con.on('open',function(){
+//     console.log('connected.....')
+// })
+
+// checking if account is changed or not 
+
 
 const bodyParser = require('body-parser');
 
@@ -13,13 +25,9 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
 app.use(doctorRouter)
 app.use(patientRouter)
-
-
-
-
-
 
 
 

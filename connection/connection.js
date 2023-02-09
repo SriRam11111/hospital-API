@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-mongoose.set('strictQuery', false);
+mongoose.set('strictQuery', true);
+
 
 // MONGODB_URI = 'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2'
 
@@ -11,3 +12,4 @@ mongoose.connect(MONGODB_URI,{ useNewUrlParser: true },(err)=>{
 else{
     console.log("successfully DB connected")
 }})
+
