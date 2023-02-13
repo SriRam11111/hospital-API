@@ -17,6 +17,7 @@ const patientSchema = new Schema({
 });
 //changes are made
 
+
 const Patient = mongoose.model("Patient", patientSchema);
 
 module.exports = Patient;
